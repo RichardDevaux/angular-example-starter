@@ -1,4 +1,4 @@
 export const environment = {
-  urlApi: "https://api.yvidya.fr/api/",
+  urlApi: 'https://api.yvidya.fr/api/',
   production: true
 };
