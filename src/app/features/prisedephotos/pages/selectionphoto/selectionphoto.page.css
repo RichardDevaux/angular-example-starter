@@ -1,0 +1,31 @@
+.label-file {
+
+  display: flex;
+
+  justify-content: center;
+
+  padding-top: 20px;
+
+  padding-bottom: 20px;
+
+  cursor: pointer;
+
+  color: #00b1ca;
+
+  font-weight: bold;
+
+  animation-name: bounce;
+
+}
+
+.label-file:hover {
+
+  color: #25a5c4;
+
+}
+
+.input-file {
+
+  display: none;
+
+}

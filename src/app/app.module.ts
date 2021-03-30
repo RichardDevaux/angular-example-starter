@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PrisephotoModule } from './features/photo/pages/prisephoto/prisephoto.module';
+
 
 @NgModule({
   declarations: [
@@ -11,8 +11,7 @@ import { PrisephotoModule } from './features/photo/pages/prisephoto/prisephoto.m
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    PrisephotoModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

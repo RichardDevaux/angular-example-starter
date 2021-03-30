@@ -3,12 +3,43 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Prise de photo vers la PDS Odeis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prise de photos</title>
+  <meta name="description" content="Prise de photos Odeis">
+  <base href="/">
 </head>
 
-<body class="mat-typography mat-app-background">
-  <app-root></app-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+<body>
+  <div class="upload">
+    <div class="upload-files">
+      <header id="header">
+        <p>
+          <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+          <span class="up">Prise de photos</span>
+          <span class="load">Odeis</span>
+        </p>
+      </header><!-- #header -->
+      <div class="logoodeis ">
+        <img src="assets/images/logo_odeis_transparent_idependant.png" class="img-fluid" alt="Odeis">
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <app-root></app-root>
+      <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+    </div>
+  </div><!-- #upload -->
+  </div>
+  <div id="slideUpload">
+  </div>
+  <footer id="footer">
+    <span class="upok"> 0 photo(s) envoyée(s)</span>
+  </footer><!-- #footer -->
+
 </body>
 
 </html>
