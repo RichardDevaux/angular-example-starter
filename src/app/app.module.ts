@@ -2,17 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PrisephotoModule } from './features/photo/pages/prisephoto/prisephoto.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PrisephotoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
