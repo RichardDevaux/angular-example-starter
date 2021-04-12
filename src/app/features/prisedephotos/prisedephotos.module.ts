@@ -2,14 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PrisedephotosRoutingModule } from './prisedephotos-routing.module';
-import { SelectionphotoPage } from './pages/selectionphoto/selectionphoto.page';
+import { MainComponent } from './pages/main/main.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
 
   imports: [
     CommonModule,
-    PrisedephotosRoutingModule
+    PrisedephotosRoutingModule,
+    MatSnackBarModule
   ],
-  declarations: [SelectionphotoPage]
+  declarations: [MainComponent]
 })
 export class PrisedephotosModule { }

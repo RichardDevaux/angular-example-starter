@@ -16,7 +16,7 @@ export function preprendProperties<Data, Key extends keyof Data>(data: Data, ...
 
       data = {
         ...data,
-        [key]: `${environment.apiUrl}${propertyValue}`
+        [key]: `${environment.urlApi}${propertyValue}`
       };
 
     }

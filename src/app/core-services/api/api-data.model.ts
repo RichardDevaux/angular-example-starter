@@ -1,3 +1,4 @@
+
 export interface APIData<T> {
   data: T;
   error?: {

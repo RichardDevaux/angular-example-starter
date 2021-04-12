@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SelectionphotoPage } from './pages/selectionphoto/selectionphoto.page';
+import { MainComponent } from './pages/main/main.component';
 
 const routes: Routes = [
-  { path: '', component: SelectionphotoPage }
+  { path: '', component: MainComponent }
 ];
 
 @NgModule({
