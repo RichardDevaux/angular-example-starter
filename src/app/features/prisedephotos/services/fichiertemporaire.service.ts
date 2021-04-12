@@ -16,7 +16,8 @@ export class FichiertemporaireService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'my-auth-token'
+      Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMDBqMWQyIiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZXhwIjoxNjE4MzIyNzM0fQ.GvOV-8YilwEY077GypJDcnPipacyXI5LLAiOlaigYUDWbQCmrpS_61Xjpppb_Z-Vr2QTYYwlqd1BzSbhS79vgw',
+      Accept: 'application json'
     })
   };
 
@@ -26,16 +27,14 @@ export class FichiertemporaireService {
 
   postFichier(body: UnePhotoTemporaire): void {
 
-    const req = new HttpRequest('POST', `${environment.urlApi}/api/fichiertemporaire`, body, {
+    const req = new HttpRequest('POST', `${environment.urlApi}/fichiertemporaire`, body, {
       reportProgress: true
     });
 
   }
 
-
-
   postFichierTemporaire(body: UnePhotoTemporaire): Observable<APIData<boolean>> {
-    return this.http.post<APIData<boolean>>(`${environment.urlApi}/api/fichiertemporaire`, body, this.httpOptions).pipe(
+    return this.http.post<APIData<boolean>>(`${environment.urlApi}/fichiertemporaire`, body, this.httpOptions).pipe(
       tap(({ data, error }) => {
         if (!error) {
 

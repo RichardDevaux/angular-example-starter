@@ -18,10 +18,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MainComponent implements OnInit {
 
+  constructor(private yvidia: FichiertemporaireService, private snackBar: MatSnackBar) { }
+
   errors: string[] = [];
   file: File | null = null;
-
-  constructor(private yvidia: FichiertemporaireService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -35,39 +35,135 @@ export class MainComponent implements OnInit {
       const monJson: UnePhotoTemporaire = {
         nomFichier: files[0].name,
         dateCreation: new Date(),
-        numeroLicence: '???',
+        numeroLicence: 'A00J1D2',
         contenuContentType: 'image/jpeg',
         contenu: '',
         apercu: '',
         uuid: uuidv4()
       };
 
+      /*
       this.file = files.item(0);
-      // tslint:disable-next-line: deprecation
-      this.yvidia.postFichierTemporaire(monJson).subscribe(
-        {
-          next: ({ error }) => {
+      const photoselection = event.target.files;
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        const SmallImg = new Image();
+        const bigImg = new Image();
+        let maphotoBase64 = '';
+        let mavignetteBase64 = '';
 
-            loading.dismiss();
+        bigImg.src = reader.result;
+        bigImg.onload = function (el) {
+          maphotoBase64 = imageToDataUrl(bigImg, 4000, 3000);
+          SmallImg.src = reader.result;
+          SmallImg.onload = function (el) {
+            mavignetteBase64 = imageToDataUrl(SmallImg, 800, 600);
+            yvidia.envoiPhoto(event.target.files[0].name, maphotoBase64, mavignetteBase64);
+          };
+        };
+      }, false);
+      reader.readAsDataURL(photoselection[0]);
+      */
 
-            if (!error) {
+      const reader = new FileReader();
 
-              this.snackBar.open(`Envoi réussi`, `OK`, { duration: 2000 });
+      reader.onload = (e: any) => {
 
-            } else {
-              this.errors = error.errors ?? [error.message];
-            }
+        const imageSmall = new Image();
+        const imageBig = new Image();
+        const maphotoBase64 = '';
+        let mavignetteBase64 = '';
 
-          },
-          error: () => {
+        imageSmall.src = e.target.result;
+        imageSmall.onload = rs => {
 
-            loading.dismiss();
+          /*maphotoBase64 = imageToDataUrl(image, 4000, 3000);*/
 
-            this.errors = [`Pas de connexion Internet`];
+          imageBig.src = e.target.result;
+          imageBig.onload = rt => {
 
-          },
-        });
+            mavignetteBase64 = this.imageToDataUrl(imageSmall, 800, 600);
+            // tslint:disable-next-line: deprecation
+            this.yvidia.postFichierTemporaire(monJson).subscribe(
+              {
+                next: ({ error }) => {
+
+                  loading.dismiss();
+
+                  if (!error) {
+
+                    this.snackBar.open(`Envoi réussi`, `OK`, { duration: 2000 });
+
+                  } else {
+                    this.errors = error.errors ?? [error.message];
+                  }
+
+                },
+                error: () => {
+
+                  loading.dismiss();
+
+                  this.errors = [`Pas de connexion Internet`];
+
+                },
+              });
+          };
+        };
+      };
+
+      reader.readAsDataURL(files[0]);
     }
+  }
+
+  imageToDataUrl(img: HTMLImageElement, widthImg: number, heightImg: number): string {
+
+    return '';
+  }
+
+  /*
+ imageToDataUrl(img: string, _width: number, _height: number): string {
+
+  let canvas = document.createElement('canvas'),
+    imageResult = document.createElement('img'),
+    ctx,
+    maxWidth = _width,
+    maxHeight = _height,
+    width = img.width,
+    height = img.height;
+
+  if (width > height) {
+    if (width > maxWidth) {
+      height *= maxWidth / width;
+      width = maxWidth;
+    }
+  } else {
+    if (height > maxHeight) {
+      width *= maxHeight / height;
+      height = maxHeight;
+    }
+  }
+
+  canvas.width = width;
+  canvas.height = height;
+  ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0, width, height);
+
+  imageResult.addEventListener('load', () => {
+
+    const retour = '';
+
+  });
+
+  imageResult = canvas.toDataURL('image/jpeg');
+  imageResult = imageResult.split(',')[1];
+
+  return imageResult;
+
+}
+*/
+
+  base64ToDataUri(base64: any): string {
+    return `data:image/jpg;base64,${base64}`;
   }
 
 }
