@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  urlApi: 'https://api.yvidya.fr/api/',
+  urlApi: 'https://api-test.yvidya.fr/api/',
   production: false
 };
 

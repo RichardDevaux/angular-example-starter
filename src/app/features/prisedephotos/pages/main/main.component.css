@@ -1,31 +1,25 @@
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+
+::ng-deep .custom-style{
+  background-color:rgb(235, 195, 20);
+  color:white;
+}
+
 .label-file {
-
   display: flex;
-
   justify-content: center;
-
   padding-top: 20px;
-
   padding-bottom: 20px;
-
   cursor: pointer;
-
   color: #00b1ca;
-
   font-weight: bold;
-
   animation-name: bounce;
-
 }
 
 .label-file:hover {
-
   color: #25a5c4;
-
 }
 
 .input-file {
-
   display: none;
-
 }

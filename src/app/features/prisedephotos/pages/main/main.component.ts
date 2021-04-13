@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FichiertemporaireService } from '../../services/fichiertemporaire.service';
 import { UnePhotoTemporaire } from '../../services/requests.model';
 import { v4 as uuidv4 } from 'uuid';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { stringify } from '@angular/compiler/src/util';
-
+import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
+import { observable, Observable } from 'rxjs';
 
 @Component({
-  template: `<label for="NewPhoto" class="label-file" style="color: chocolate; " id='libellenouvellephoto' >Sélectionner une photo à envoyer </label>
+  template: `<label for="NewPhoto" *ngIf="envoiEnCours==false" class="label-file" style="color: chocolate; " id='libellenouvellephoto' >Sélectionner une photo à envoyer </label>
   <input type="file"
           id="NewPhoto"
           #fileInput class="input-file"
@@ -19,17 +18,17 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private yvidia: FichiertemporaireService, private snackBar: MatSnackBar) { }
+  public envoiEnCours = false;
 
   errors: string[] = [];
   file: File | null = null;
+
+  constructor(private yvidia: FichiertemporaireService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   onFileInput(files: FileList | null): void {
-
-    const loading = this.snackBar.open(`Envoi en cours...`);
 
     if (files) {
 
@@ -64,36 +63,37 @@ export class MainComponent implements OnInit {
             monJson.contenu = maphotoBase64;
             monJson.apercu = mavignetteBase64;
 
+            /*this.yvidia.postFichier(monJson)*/
+            this.envoiEnCours = true;
+            this.showSnackbar(`Envoi en cours...`, '', 1000);
+
             // tslint:disable-next-line: deprecation
             this.yvidia.postFichierTemporaire(monJson).subscribe(
               {
                 next: ({ error }) => {
-
-                  loading.dismiss();
-
                   if (!error) {
-
-                    this.snackBar.open(`Envoi réussi`, `OK`, { duration: 2000 });
-
+                    this.showSnackbar(`Envoi réussi...`, '', 1000);
                   } else {
                     this.errors = error.errors ?? [error.message];
+                    this.envoiEnCours = false;
                   }
-
                 },
                 error: () => {
-
-                  loading.dismiss();
-
                   this.errors = [`Pas de connexion Internet`];
-
+                  this.envoiEnCours = false;
                 },
+
               });
+
           };
         };
       };
 
       reader.readAsDataURL(files[0]);
     }
+
+
+
   }
 
   imageToDataUrl(img: HTMLImageElement, widthImg: number, heightImg: number): string {
@@ -154,6 +154,31 @@ export class MainComponent implements OnInit {
     }
 
     return imgCompressed;
+  }
+
+  showSnackbar(content: string, action: string = '', duree: number = 2000): void {
+    const sb = this.snackBar.open(content, action, {
+      duration: duree,
+      verticalPosition: 'top', // Allowed values are  'top' | 'bottom'
+      horizontalPosition: 'center', // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right',
+      panelClass: ['custom-style']
+    });
+
+    const myObservable = sb.afterDismissed();
+
+    // Create observer object
+    const myObserver = {
+      next: (x: any) => console.log(''),
+      error: (err: string) => console.error('Observer got an error: ' + err),
+      complete: () => setTimeout(() => {
+        this.envoiEnCours = false;
+      }, duree + 1000)
+    };
+
+    // tslint:disable-next-line: deprecation
+    myObservable.subscribe(myObserver);
+
+
   }
 
 }
