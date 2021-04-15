@@ -4,7 +4,8 @@ body, html {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(to top, #4db6ac, #f8f9fa);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

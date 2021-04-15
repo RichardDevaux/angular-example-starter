@@ -1,25 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FichiertemporaireService } from '../../services/fichiertemporaire.service';
 import { UnePhotoTemporaire } from '../../services/requests.model';
 import { v4 as uuidv4 } from 'uuid';
-import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { observable, Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+// import { PhotosSentComponent } from '../../components/photos-slide/photos-slide.component';
 
 @Component({
-  template: `<label for="NewPhoto" *ngIf="envoiEnCours==false" class="label-file" style="color: chocolate; " id='libellenouvellephoto' >Sélectionner une photo à envoyer </label>
-  <input type="file"
-          id="NewPhoto"
-          #fileInput class="input-file"
-          alt="clic"
-          accept="image/png, image/jpeg"
-          (change)="onFileInput(fileInput.files)"
-          style="color:cadetblue;">
+  template: `
+    <label *ngIf="envoiEnCours==true" class="label-send" style="color : white; " id='libellenouvellephoto' ></label>
+    <label for="NewPhoto" *ngIf="envoiEnCours==false" class="label-file" style="color: chocolate; " id='libellenouvellephoto' >Sélectionner une photo à envoyer </label>
+    <input type="file"
+            id="NewPhoto"
+            #fileInput class="input-file"
+            alt="clic"
+            accept="image/png, image/jpeg"
+            (change)="onFileInput(fileInput.files)"
+            style="color:cadetblue;">
+
+    <mat-progress-bar *ngIf="progress > 0" mode="determinate"  [value]="progress">
+    </mat-progress-bar>
+
+    <div class="upok" >
+    <span class="libUpok"> {{ photosSend }} photo(s) envoyée(s)</span>
+    </div>
+
+    <div id="slideUpload"></div>
+
   `, styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
 
-  public envoiEnCours = false;
+  @Output() newphotoSent = new EventEmitter<string>();
 
+  public envoiEnCours = false;
+  public progress = 0;
+  public photosSend = 0;
+
+  photoSentList: Array<string> = [];
   errors: string[] = [];
   file: File | null = null;
 
@@ -63,36 +80,51 @@ export class MainComponent implements OnInit {
             monJson.contenu = maphotoBase64;
             monJson.apercu = mavignetteBase64;
 
-            /*this.yvidia.postFichier(monJson)*/
             this.envoiEnCours = true;
-            this.showSnackbar(`Envoi en cours...`, '', 1000);
 
             // tslint:disable-next-line: deprecation
-            this.yvidia.postFichierTemporaire(monJson).subscribe(
-              {
-                next: ({ error }) => {
-                  if (!error) {
-                    this.showSnackbar(`Envoi réussi...`, '', 1000);
+            this.yvidia.postFichierTemporaire(monJson).subscribe((result) => {
+
+              switch (result.type) {
+                case 0:
+                case 1:  /* An upload progress event was received.*/
+                  this.progress = Math.round(100 * result.loaded / result.total);
+                  break;
+                case 2: /*The response status code and headers were received.*/
+                  if ([200, 201].includes(result.status)) {
+                    this.progress = 0;
+                    this.photosSend = this.photosSend + 1;
+                    this.envoiEnCours = false;
+                    this.newphotoSent.emit(mavignetteBase64);
+
+                    // const spinnerPhotos = /** @type {HTMLInputElement} */ (document.querySelector('.'));
+                    // if (spinnerPhotos !== null) {
+                    //   spinnerPhotos.innerHTML = `${spinnerPhotos.innerHTML}
+                    //   <img src="data:image/jpeg;base64,${mavignetteBase64}" alt="${this.photosSend}" class="img-thumbnail miniature">`;
+                    // }
+
                   } else {
-                    this.errors = error.errors ?? [error.message];
+                    this.progress = 0;
+                    console.log(result.statusText);
                     this.envoiEnCours = false;
                   }
-                },
-                error: () => {
-                  this.errors = [`Pas de connexion Internet`];
+                  break;
+                default:
+                  this.progress = 0;
                   this.envoiEnCours = false;
-                },
-
-              });
-
+              }
+            }, (err) => {
+              this.showSnackbar(`impossible d'envoyer votre photo`, ' ! ');
+              console.log(err.statusText);
+              this.progress = 0;
+              this.envoiEnCours = false;
+            });
           };
         };
       };
 
       reader.readAsDataURL(files[0]);
     }
-
-
 
   }
 
@@ -161,7 +193,7 @@ export class MainComponent implements OnInit {
       duration: duree,
       verticalPosition: 'top', // Allowed values are  'top' | 'bottom'
       horizontalPosition: 'center', // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right',
-      panelClass: ['custom-style']
+      // panelClass: ['custom-style']
     });
 
     const myObservable = sb.afterDismissed();

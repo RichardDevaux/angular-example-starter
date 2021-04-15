@@ -1,19 +1,32 @@
-<div class="upload">
-  <div class="upload-files">
+<div id="conteneur"
+  style='display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 80%;'>
 
-    <header id="header">
-      <p>
-        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-        <span class="up">Prise de photos</span>
-        <span class="load"> Odeis </span>
-      </p>
-    </header>
+  <div class="uploadbackground" style='display: flex; flex-direction: column; justify-content: center;'>
 
-    <div class="logoodeis ">
-      <img src="assets/images/logo_odeis_transparent_idependant.png" class="img-fluid" alt="Odeis">
+    <div class="bloc_titre" style="flex: 1;">
+
+      <div class="titre_haut"
+        style='display: flex; flex-direction: column; align-items: center; justify-content: space-between;'>
+        <div class="ligne_titre_1">
+          <mat-icon style="font-size:xx-large; margin-right: 20px ;">cloud_upload</mat-icon>
+          <span>Prise de photos</span>
+        </div>
+        <div class="ligne_titre_2">Odeis</div>
+      </div>
+
+      <div class="logoodeis">
+        <img src="assets/images/logo_odeis_transparent_idependant.png" class="img-fluid" alt="Odeis">
+      </div>
+
     </div>
 
     <router-outlet></router-outlet>
 
   </div>
+
+</div>
+<div id="photos_send"
+  style='display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%; height: 20%;'>
+
+
 </div>
