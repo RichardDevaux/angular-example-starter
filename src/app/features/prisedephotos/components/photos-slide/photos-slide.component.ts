@@ -1,21 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
+
 @Component({
   selector: 'app-photos-slide',
-  template: `
-  <div>sdgsdfgsfdgsdfg</div>
-
- <picture *ngif(newphotoSent)>
- <img src="{{ newphotoSent }}" alt="image"/>
- </picture>
-
-  `,
-  styleUrls: ['./photos-slide.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './photos-slide.component.html',
+  styleUrls: ['./photos-slide.component.css']
 })
 export class PhotosSentComponent implements OnInit {
 
-  @Input() newphotoSent?: string;
+  @Input() photoSentList: string[] = [];
 
   constructor() { }
 
@@ -23,6 +16,4 @@ export class PhotosSentComponent implements OnInit {
 
 }
 
-// <picture *ngFor="let photoSent of photoSentList">
-// <img src="{{ photoSent.name }}" alt="image"/>
-// </picture>
+

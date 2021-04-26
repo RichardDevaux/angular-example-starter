@@ -1,0 +1,120 @@
+:host {
+    height: 100%;
+    flex: 2 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+:host ::ng-deep .custom-style {
+    background-color: rgb(235, 195, 20);
+    color: white;
+}
+
+[class^="label-"] {
+    align-self: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    animation-name: bounce;
+}
+
+.label {
+    &-file {
+        cursor: pointer;
+        &:hover {
+            color: #25a5c4;
+        }
+    }
+    &-send {
+        cursor: progress;
+    }
+}
+
+.input-file {
+    display: none;
+}
+
+.upok {
+    width: 50%;
+    padding: 6px 0 6px 0;
+    align-self: center;
+    background-color: rgb(245, 218, 85);
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+* {
+    box-sizing: border-box;
+}
+
+.logoodeis {
+    display: flex;
+    justify-content: center;
+}
+
+.uploadbackground {
+    position: relative;
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding-bottom: 20px;
+    background: #fff;
+}
+
+.titre_haut {
+    background: #4db6ac;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.content-upload {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ligne_titre_1,
+.ligne_titre_2 {
+    color: #fff;
+    font-size: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+.ligne {
+    &_titre_1 {
+        display: flex;
+        align-items: center;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        font-weight: bold;
+    }
+    &_titre_2 {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+}
+
+#conteneur {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+// #photos_send {
+// height: 100px;
+// display: flex;
+// flex-direction: row;
+// justify-content: space-between;
+// align-items: center;
+// }

@@ -5,7 +5,9 @@ import { PrisedephotosRoutingModule } from './prisedephotos-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-// import { PhotosSentComponent } from './components/photos-slide/photos-slide.component';
+import { MatIconModule } from '@angular/material/icon';
+import { PhotosSentComponent } from './components/photos-slide/photos-slide.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
 
@@ -13,12 +15,15 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CommonModule,
     PrisedephotosRoutingModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule
   ],
-  declarations: [MainComponent]
-  // ,exports: [
-  //   PhotosSentComponent
-  // ]
+  declarations: [
+    MainComponent,
+    PhotosSentComponent
+  ]
+
 })
 
 export class PrisedephotosModule { }

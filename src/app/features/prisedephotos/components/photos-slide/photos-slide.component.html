@@ -1,0 +1,15 @@
+<button mat-icon-button aria-label="prédédente">
+  <mat-icon>skip_previous</mat-icon>
+</button>
+
+
+<div class="carrousel" *ngFor="let newphotoSent of photoSentList; let index = index">
+    <picture>
+        <img src="data:image/jpeg;base64,{{ newphotoSent }}" alt="{{index}}" class="img-miniature" style="padding: 0 5px 0 5px;" />
+    </picture>
+</div>
+
+
+<button mat-icon-button aria-label="suivante">
+  <mat-icon>skip_next</mat-icon>
+</button>

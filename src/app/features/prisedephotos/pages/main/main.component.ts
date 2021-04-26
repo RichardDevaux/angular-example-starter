@@ -1,35 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FichiertemporaireService } from '../../services/fichiertemporaire.service';
 import { UnePhotoTemporaire } from '../../services/requests.model';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { PhotosSentComponent } from '../../components/photos-slide/photos-slide.component';
 
 @Component({
-  template: `
-    <label *ngIf="envoiEnCours==true" class="label-send" style="color : white; " id='libellenouvellephoto' ></label>
-    <label for="NewPhoto" *ngIf="envoiEnCours==false" class="label-file" style="color: chocolate; " id='libellenouvellephoto' >Sélectionner une photo à envoyer </label>
-    <input type="file"
-            id="NewPhoto"
-            #fileInput class="input-file"
-            alt="clic"
-            accept="image/png, image/jpeg"
-            (change)="onFileInput(fileInput.files)"
-            style="color:cadetblue;">
-
-    <mat-progress-bar *ngIf="progress > 0" mode="determinate"  [value]="progress">
-    </mat-progress-bar>
-
-    <div class="upok" >
-    <span class="libUpok"> {{ photosSend }} photo(s) envoyée(s)</span>
-    </div>
-
-    <div id="slideUpload"></div>
-
-  `, styleUrls: ['./main.component.css']
+  selector: 'app-main-layout',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
 
+  // @Input() newphotoSent = new EventEmitter<string>();
   @Output() newphotoSent = new EventEmitter<string>();
 
   public envoiEnCours = false;
@@ -95,13 +77,9 @@ export class MainComponent implements OnInit {
                     this.progress = 0;
                     this.photosSend = this.photosSend + 1;
                     this.envoiEnCours = false;
-                    this.newphotoSent.emit(mavignetteBase64);
 
-                    // const spinnerPhotos = /** @type {HTMLInputElement} */ (document.querySelector('.'));
-                    // if (spinnerPhotos !== null) {
-                    //   spinnerPhotos.innerHTML = `${spinnerPhotos.innerHTML}
-                    //   <img src="data:image/jpeg;base64,${mavignetteBase64}" alt="${this.photosSend}" class="img-thumbnail miniature">`;
-                    // }
+                    mavignetteBase64 = this.imageToDataUrl(imageSmall, 50, 50);
+                    this.photoSentList.push(mavignetteBase64);
 
                   } else {
                     this.progress = 0;

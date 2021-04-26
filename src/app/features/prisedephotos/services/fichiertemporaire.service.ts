@@ -12,7 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class FichiertemporaireService {
 
-  tokenPds = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMDBqMWQyIiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZXhwIjoxNjE4NTgxNDkxfQ.6KWdXRAFEX-NEE_9e2wlgMvue9giaHt70fOWi6LDuYsCJZWs_LSOpovgK_gOrvMEHpzgF0okc737ssYZo-r_fA';
+  tokenPds = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMDBqMWQyIiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZXhwIjoxNjE5NTEzODMxfQ.6qffTubsGOgUybB7pAtrLzYI2ged53YFS8jhY2nGc_gHNC6drdGgQEozFwJcxnR7l2L9XsH5dKX41IQIhqye_A';
 
   httpOptions: any = {
     reportProgress: true,
