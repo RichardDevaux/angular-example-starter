@@ -18,6 +18,7 @@ export class MainComponent implements OnInit {
   public progress = 0;
   public photosSend = 0;
 
+  color = 'chocolate';
   photoSentList: Array<string> = [];
   errors: string[] = [];
   file: File | null = null;
@@ -63,6 +64,7 @@ export class MainComponent implements OnInit {
             monJson.apercu = mavignetteBase64;
 
             this.envoiEnCours = true;
+            this.color = 'white';
 
             // tslint:disable-next-line: deprecation
             this.yvidia.postFichierTemporaire(monJson).subscribe((result) => {
@@ -77,6 +79,7 @@ export class MainComponent implements OnInit {
                     this.progress = 0;
                     this.photosSend = this.photosSend + 1;
                     this.envoiEnCours = false;
+                    this.color = 'chocolate';
 
                     mavignetteBase64 = this.imageToDataUrl(imageSmall, 50, 50);
                     this.photoSentList.push(mavignetteBase64);
@@ -85,17 +88,20 @@ export class MainComponent implements OnInit {
                     this.progress = 0;
                     console.log(result.statusText);
                     this.envoiEnCours = false;
+                    this.color = 'chocolate';
                   }
                   break;
                 default:
                   this.progress = 0;
                   this.envoiEnCours = false;
+                  this.color = 'chocolate';
               }
             }, (err) => {
               this.showSnackbar(`impossible d'envoyer votre photo`, ' ! ');
               console.log(err.statusText);
               this.progress = 0;
               this.envoiEnCours = false;
+              this.color = 'chocolate';
             });
           };
         };

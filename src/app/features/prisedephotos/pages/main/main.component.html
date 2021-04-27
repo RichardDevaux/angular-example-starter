@@ -1,41 +1,39 @@
 <div id="conteneur">
 
-  <div class="uploadbackground" style='display: flex; flex-direction: column; justify-content: center;'>
+    <div class="uploadbackground" style='display: flex; flex-direction: column; justify-content: center;'>
 
-    <div class="bloc_titre" style="flex: 1;">
+        <div class="bloc_titre" style="flex: 1;">
 
-      <div class="titre_haut"
-        style='display: flex; flex-direction: column; align-items: center; justify-content: space-between;'>
-        <div class="ligne_titre_1">
-          <mat-icon style="font-size:xx-large; margin-right: 20px ;">cloud_upload</mat-icon>
-          <span>Prise de photos</span>
+            <div class="titre_haut" style='display: flex; flex-direction: column; align-items: center; justify-content: space-between;'>
+                <div class="ligne_titre_1">
+                    <mat-icon style="font-size:xx-large; margin-right: 20px ;">cloud_upload</mat-icon>
+                    <span>Prise de photos</span>
+                </div>
+                <!-- <div class="ligne_titre_2">Odeis</div> -->
+            </div>
+
+            <div class="logoodeis">
+                <img src="assets/images/logo_odeis_transparent_idependant.png" class="img-fluid" alt="Odeis">
+            </div>
+
         </div>
-        <!-- <div class="ligne_titre_2">Odeis</div> -->
-      </div>
+        <label for="NewPhoto" class="label-file" [style.color]="color" id='libellenouvellephoto'>Sélectionner une photo à envoyer </label>
+        <input type="file" id="NewPhoto" #fileInput class="input-file" alt="clic" accept="image/png, image/jpeg" (change)="onFileInput(fileInput.files)" style="color:cadetblue;">
 
-      <div class="logoodeis">
-        <img src="assets/images/logo_odeis_transparent_idependant.png" class="img-fluid" alt="Odeis">
-      </div>
+
+        <mat-progress-bar *ngIf="progress > 0" mode="determinate" [value]="progress">
+        </mat-progress-bar>
+        <!-- <div [ngStyle]="{ height: progress == 0 ? '4px' : '0px' }">
+        </div> -->
+
+
+        <div class="upok">
+            <span class="libUpok"> {{ photosSend }} photo(s) envoyée(s)</span>
+        </div>
 
     </div>
-    <label *ngIf="envoiEnCours==true" class="label-send" style="color : white; " id='libellenouvellephoto'></label>
-    <label for="NewPhoto" *ngIf="envoiEnCours==false" class="label-file" style="color: chocolate; "
-      id='libellenouvellephoto'>Sélectionner une photo à envoyer </label>
-    <input type="file" id="NewPhoto" #fileInput class="input-file" alt="clic" accept="image/png, image/jpeg"
-      (change)="onFileInput(fileInput.files)" style="color:cadetblue;">
-
-    <mat-progress-bar *ngIf="progress > 0" mode="determinate" [value]="progress">
-    </mat-progress-bar>
-
-    <div class="upok">
-      <span class="libUpok"> {{ photosSend }} photo(s) envoyée(s)</span>
-    </div>
-
-
-
-  </div>
 
 </div>
 <div id="photos_send">
-  <app-photos-slide [photoSentList]="photoSentList"></app-photos-slide>
+    <app-photos-slide [photoSentList]="photoSentList"></app-photos-slide>
 </div>
